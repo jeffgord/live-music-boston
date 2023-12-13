@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% import 'modal-form.html' as modal %}
+
+{% block title %}Maintenance{% endblock %}
+
+{% block content %}
+<h1 align="center">Locations</h1>
+
+<table id="locations"
+    class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">
+                <button class="hoverable bi hover-bi-plus-square btn-icon"
+                    data-bs-toggle="modal"
+                    data-bs-target="#location-add"></button>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for location in locations %}
+        <tr>
+            <td>{{ location.id }}</td>
+            <td>{{ location.name }}</td>
+            <td>
+                <button class="hoverable bi hover-bi-pencil btn-icon"></button>
+                <button class="hoverable bi hover-bi-trash btn-icon"
+                    data-bs-toggle="modal"
+                    data-bs-target="#location-delete"></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% call modal.new("location-add", "Add location", "/maintenance/add-location", "Save") %}
+<div class="form-group">
+    <input type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        placeholder="Name" />
+</div>
+{% endcall %}
+
+{% call modal.new("location-delete", "Delete location", "/maintenance/delete-location", "Yes") %}
+<input type="hidden"
+    name="location_id"
+    id="location_id"
+    value="">
+<p>Are you sure you want to delete this location?</p>
+{% endcall %}
+
+{% endblock %}
