@@ -13,9 +13,8 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">
-                <button class="hoverable bi hover-bi-plus-square btn-icon"
-                    data-bs-toggle="modal"
-                    data-bs-target="#location-add"></button>
+                <button id="btn-add-location"
+                    class="hoverable bi hover-bi-plus-square btn-icon"></button>
             </th>
         </tr>
     </thead>
@@ -26,17 +25,18 @@
             <td>{{ location.id }}</td>
             <td>{{ location.name }}</td>
             <td>
-                <button class="hoverable bi hover-bi-pencil btn-icon"></button>
-                <button class="hoverable bi hover-bi-trash btn-icon"
-                    data-bs-toggle="modal"
-                    data-bs-target="#location-delete"></button>
+                <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
+                    data-location-id="{{ location.id }}"
+                    data-old-name="{{ location.name }}"></button>
+                <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-location"
+                    data-location-id="{{ location.id }}"></button>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
-{% call modal.new("location-add", "Add location", "/maintenance/add-location", "Save") %}
+{% call modal.new("modal-add-location", "Add location", "/maintenance/add-location", "Add") %}
 <div class="form-group">
     <input type="text"
         class="form-control"
@@ -46,12 +46,68 @@
 </div>
 {% endcall %}
 
-{% call modal.new("location-delete", "Delete location", "/maintenance/delete-location", "Yes") %}
+{% call modal.new("modal-delete-location", "Delete location", "/maintenance/delete-location", "Yes") %}
 <input type="hidden"
     name="location_id"
-    id="location_id"
+    id="delete-location-id"
     value="">
 <p>Are you sure you want to delete this location?</p>
 {% endcall %}
 
+{% call modal.new("modal-edit-location", "Edit location", "/maintenance/edit-location", "Save") %}
+<div class="form-group">
+    <input type="hidden"
+        name="location_id"
+        id="edit-location-id">
+    <input type="text"
+        class="form-control"
+        id="edit-location-name"
+        name="name" />
+</div>
+{% endcall %}
+
+
+{% for location in locations %}
+<h2>{{ location.name }}</h2>
+
+<table id="{{ location.name }}-venues"
+    class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Frequency</th>
+            <th cope="col">Genre</th>
+            <th scope="col">
+                <button class="hoverable bi hover-bi-plus-square btn-icon modal-trigger-add-venue"
+                    data-location-id="{{ location.id }}"></button>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for venue in venues.filter(lambda x: x.location_id = location.id) %}
+        <tr>
+            <td>{{ location.id }}</td>
+            <td>
+                {% if %}
+                {{ location.name }}</td>
+            <td>
+                <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
+                    data-location-id="{{ location.id }}"
+                    data-old-name="{{ location.name }}"></button>
+                <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-location"
+                    data-location-id="{{ location.id }}"></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/maintenance.js"></script>
 {% endblock %}

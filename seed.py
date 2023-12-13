@@ -1,4 +1,4 @@
-from website import create_app, db, models
+from website import create_app, db
 from website.models import Location, Venue
 
 

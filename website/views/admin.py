@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, logout_user, current_user
 from werkzeug.security import check_password_hash
-from . import db
-from .models import *
+from .. import db
+from ..models import Admin
 
 
 admin = Blueprint("admin", __name__)
@@ -17,34 +17,11 @@ def login():
         admin = Admin.query.filter_by(username=username).first()
         if admin and check_password_hash(admin.password, password):
             login_user(admin)
-            return redirect(url_for("admin.maintenance"))
+            return redirect(url_for("maintenance.page"))
         else:
             flash("Hey! Those credentials are no good.")
 
     return render_template("admin-login.html")
-
-
-@admin.route("/maintenance")
-@login_required
-def maintenance():
-    locations = Location.query.all()
-    venues = Venue.query.all()
-    return render_template("maintenance.html", locations=locations, venues=venues)
-
-
-@admin.route("/maintenance/add-location", methods=["POST"])
-@login_required
-def add_location():
-    name = request.form["name"]
-
-    if Location.query.filter_by(name=name).first():
-        flash("A location already exists with that name!")
-    else:
-        new_location = Location(name=name)
-        db.session.add(new_location)
-        db.session.commit()
-
-    return redirect(url_for("admin.maintenance"))
 
 
 @admin.before_request
