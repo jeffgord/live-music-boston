@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.modal-trigger-edit-location').forEach(function (button) {
         button.addEventListener('click', function () {
             var locationId = this.getAttribute('data-location-id');
-            var oldName = this.getAttribute('data-old-name');
+            var oldName = this.getAttribute('data-location-name');
             document.getElementById('edit-location-id').value = locationId;
             document.getElementById('edit-location-name').value = oldName;
             modalEditLocation.show();

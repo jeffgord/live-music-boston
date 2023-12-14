@@ -27,7 +27,7 @@
             <td>
                 <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
                     data-location-id="{{ location.id }}"
-                    data-old-name="{{ location.name }}"></button>
+                    data-location-name="{{ location.name }}"></button>
                 <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-location"
                     data-location-id="{{ location.id }}"></button>
             </td>
@@ -68,6 +68,7 @@
 
 
 {% for location in locations %}
+<br />
 <h2>{{ location.name }}</h2>
 
 <table id="{{ location.name }}-venues"
@@ -86,18 +87,31 @@
     </thead>
 
     <tbody>
-        {% for venue in venues.filter(lambda x: x.location_id = location.id) %}
+        {% for venue in venues if venue.location_id == location.id %}
         <tr>
-            <td>{{ location.id }}</td>
+            <td>{{ venue.id }}</td>
             <td>
-                {% if %}
-                {{ location.name }}</td>
+                {% if venue.link %}
+                <a href="{{ venue.link }}"
+                    target="_blank">{{ venue.name }}</a>
+                {% else %}
+                {{ venue.name }}
+                {% endif %}
+            </td>
+            <td>{{ venue.frequency}}</td>
+            <td>{{ venue.genre }}</td>
             <td>
                 <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
-                    data-location-id="{{ location.id }}"
-                    data-old-name="{{ location.name }}"></button>
+                    data-venue-id="{{ venue.id }}"
+                    data-venue-name="{{ venue.name }}"
+                    data-venue-link="{{ venue.link }}"
+                    data-venue-location-id="{{ location.id }}"
+                    data-venue-frequency="{{ venue.frequency }}"
+                    data-venue-genre="{{ venue.genre }}">
+                </button>
                 <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-location"
-                    data-location-id="{{ location.id }}"></button>
+                    data-venue-id="{{ venue.id }}">
+                </button>
             </td>
         </tr>
         {% endfor %}
