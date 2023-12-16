@@ -1,16 +1,16 @@
-{% macro new(id, title, action, submit_text) %}
+{% macro new(id_suffix, title, action, submit_text) %}
 <div class="modal fade"
-    id="{{ id }}"
+    id="modal-{{ id_suffix }}"
     data-bs-backdrop="static"
     data-bs-keyboard="false"
     tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
+    aria-labelledby="title-{{ id_suffix }}"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5"
-                    id="staticBackdropLabel">{{ title }}</h1>
+                    id="title-{{ id_suffix }}">{{ title }}</h1>
                 <button type="button"
                     class="btn-close"
                     data-bs-dismiss="modal"

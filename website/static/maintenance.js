@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             var locationId = this.getAttribute('data-location-id');
             document.getElementById('delete-location-id').value = locationId;
+            document.getElementById('title-delete-location').textContent += this.getAttribute('data-location-name');
             modalDeleteLocation.show();
         });
     });
