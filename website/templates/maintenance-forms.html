@@ -1,0 +1,56 @@
+{% macro add_edit_location(add_or_edit) %}
+<input type="hidden"
+    name="location_id"
+    id="{{ add_or_edit }}-location-id">
+<label for="{{ add_or_edit }}-location-name"
+    class="form-label">Name</label>
+<input type="text"
+    class="form-control"
+    id="{{ add_or_edit }}-location-name"
+    name="name"
+    placeholder="Enter name" />
+{% endmacro %}
+
+{% macro add_edit_venue(add_or_edit, locations) %}
+<label for="{{ add_or_edit }}-venue-name"
+    class="form-label">Name</label>
+<input type="text"
+    class="form-control"
+    id="{{ add_or_edit }}-venue-name"
+    name="name"
+    placeholder="Enter Name" />
+<br />
+<label for="{{ add_or_edit }}-venue-link"
+    class="form-label">Link</label>
+<input type="text"
+    class="form-control"
+    id="{{ add_or_edit }}-venue-link"
+    name="link"
+    placeholder="Enter link" />
+<br />
+<label for="{{ add_or_edit }}-venue-location"
+    class="form-label">Location</label>
+<select id="{{ add_or_edit }}-select-venue-location"
+    class="form-select"
+    aria-label="Default select example">
+    {% for location in locations %}
+    <option value="{{ location.id }}">{{ location.name }}</option>
+    {% endfor %}
+</select>
+<br />
+<label for="{{ add_or_edit }}-venue-frequency"
+    class="form-label">Frequency</label>
+<input type="text"
+    class="form-control"
+    id="{{ add_or_edit }}-venue-frequency"
+    name="frequency"
+    placeholder="Enter frequency" />
+<br />
+<label for="{{ add_or_edit }}-venue-genre"
+    class="form-label">Genre</label>
+<input type="text"
+    class="form-control"
+    id="{{ add_or_edit }}-venue-genre"
+    name="genre"
+    placeholder="Enter genre" />
+{% endmacro %}
