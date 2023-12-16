@@ -38,11 +38,13 @@
 
 {% call modal.new("modal-add-location", "Add location", "/maintenance/add-location", "Add") %}
 <div class="form-group">
+    <label for="add-location-name"
+        class="form-label">Name</label>
     <input type="text"
         class="form-control"
-        id="name"
+        id="add-location-name"
         name="name"
-        placeholder="Name" />
+        placeholder="Enter Name" />
 </div>
 {% endcall %}
 
@@ -59,10 +61,13 @@
     <input type="hidden"
         name="location_id"
         id="edit-location-id">
+    <label for="edit-location-name"
+        class="form-label">Name</label>
     <input type="text"
         class="form-control"
         id="edit-location-name"
-        name="name" />
+        name="name"
+        placeholder="Enter name" />
 </div>
 {% endcall %}
 
@@ -118,6 +123,52 @@
     </tbody>
 </table>
 {% endfor %}
+
+{% call modal.new("modal-add-venue", "Add venue", "/maintenance/add-venue", "Add") %}
+<div class="form-group">
+    <label for="add-venue-name"
+        class="form-label">Name</label>
+    <input type="text"
+        class="form-control"
+        id="add-venue-name"
+        name="name"
+        placeholder="Enter Name" />
+    <br />
+    <label for="add-venue-link"
+        class="form-label">Link</label>
+    <input type="text"
+        class="form-control"
+        id="add-venue-link"
+        name="link"
+        placeholder="Enter link" />
+    <br />
+    <label for="add-venue-location"
+        class="form-label">Location</label>
+    <select class="form-select"
+        aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        {% for location in locations %}
+        <option value="{{ location.id }}">{{ location.name }}</option>
+        {% endfor %}
+    </select>
+    <br />
+    <label for="add-venue-frequency"
+        class="form-label">Frequency</label>
+    <input type="text"
+        class="form-control"
+        id="add-venue-frequency"
+        name="frequency"
+        placeholder="Enter frequency" />
+    <br />
+    <label for="add-venue-genre"
+        class="form-label">Genre</label>
+    <input type="text"
+        class="form-control"
+        id="add-venue-genre"
+        name="genre"
+        placeholder="Enter genre" />
+</div>
+{% endcall %}
 
 {% endblock %}
 

@@ -25,4 +25,11 @@ document.addEventListener('DOMContentLoaded', function () {
             modalEditLocation.show();
         });
     });
+
+    var modalEditLocation = new bootstrap.Modal(document.getElementById('modal-add-venue'));
+    document.querySelectorAll('.modal-trigger-add-venue').forEach(function (button) {
+        button.addEventListener('click', function () {
+            modalEditLocation.show();
+        });
+    });
 });
