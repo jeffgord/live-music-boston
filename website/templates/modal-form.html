@@ -1,6 +1,4 @@
 {% macro new(id, title, action, submit_text) %}
-<!-- this does nothing, but jinja needs to use the caller variable for some reason or else you cannot call this macro :/ -->
-<div style="display: none;">{{ caller }}</div>
 <div class="modal fade"
     id="{{ id }}"
     data-bs-backdrop="static"
