@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    var modalEditLocation = new bootstrap.Modal(document.getElementById('modal-add-venue'));
+    var modalAddVenue = new bootstrap.Modal(document.getElementById('modal-add-venue'));
     document.querySelectorAll('.modal-trigger-add-venue').forEach(function (button) {
         button.addEventListener('click', function () {
-            modalEditLocation.show();
+            modalAddVenue.show();
         });
     });
 });
