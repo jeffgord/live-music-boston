@@ -59,3 +59,28 @@ def edit_location():
         db.session.commit()
 
     return redirect(url_for("maintenance.page"))
+
+
+@maintenance.route("maintenance/add-venue", methods=["POST"])
+@login_required
+def add_venue():
+    name = request.form["name"]
+    link = request.form["link"]
+    location_id = request.form["location_id"]
+    frequency = request.form["frequency"]
+    genre = request.form["genre"]
+
+    if Venue.query.filter_by(name=name).first():
+        flash("A Venue already exists with this name!")
+    else:
+        new_venue = Venue(
+            name=name,
+            link=link,
+            location_id=location_id,
+            frequency=frequency,
+            genre=genre,
+        )
+        db.session.add(new_venue)
+        db.session.commit()
+
+    return redirect(url_for("maintenance.page"))

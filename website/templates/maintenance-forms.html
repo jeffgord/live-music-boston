@@ -8,7 +8,8 @@
     class="form-control"
     id="{{ add_or_edit }}-location-name"
     name="name"
-    placeholder="Enter name" />
+    placeholder="Enter name"
+    required />
 {% endmacro %}
 
 {% macro add_edit_venue(add_or_edit, locations) %}
@@ -18,7 +19,8 @@
     class="form-control"
     id="{{ add_or_edit }}-venue-name"
     name="name"
-    placeholder="Enter Name" />
+    placeholder="Enter Name"
+    required />
 <br />
 <label for="{{ add_or_edit }}-venue-link"
     class="form-label">Link</label>
@@ -31,6 +33,7 @@
 <label for="{{ add_or_edit }}-venue-location"
     class="form-label">Location</label>
 <select id="{{ add_or_edit }}-select-venue-location"
+    name="location_id"
     class="form-select"
     aria-label="Default select example">
     {% for location in locations %}
