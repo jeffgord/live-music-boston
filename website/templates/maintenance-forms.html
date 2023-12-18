@@ -13,6 +13,9 @@
 {% endmacro %}
 
 {% macro add_edit_venue(add_or_edit, locations) %}
+<input type="hidden"
+    name="venue_id"
+    id="{{ add_or_edit }}-venue-id">
 <label for="{{ add_or_edit }}-venue-name"
     class="form-label">Name</label>
 <input type="text"

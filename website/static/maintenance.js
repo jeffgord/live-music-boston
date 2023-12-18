@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var modalAddVenue = new bootstrap.Modal(document.getElementById('modal-add-venue'));
     document.querySelectorAll('.modal-trigger-add-venue').forEach(function (button) {
         button.addEventListener('click', function () {
-            var locationId = this.getAttribute('data-location-id');
-            document.getElementById('add-select-venue-location').value = `${locationId}`;
+            document.getElementById('add-select-venue-location').value = this.getAttribute('data-location-id');
             modalAddVenue.show();
         });
     });
@@ -38,8 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var modalEditVenue = new bootstrap.Modal(document.getElementById('modal-edit-venue'));
     document.querySelectorAll('.modal-trigger-edit-venue').forEach(function (button) {
         button.addEventListener('click', function () {
-            var locationId = this.getAttribute('data-venue-location-id');
-            document.getElementById('edit-select-venue-location').value = `${locationId}`;
+            document.getElementById('edit-venue-id').value = this.getAttribute('data-venue-id');
+            document.getElementById('edit-venue-name').value = this.getAttribute('data-venue-name');
+            document.getElementById('edit-venue-link').value = this.getAttribute('data-venue-link');;
+            document.getElementById('edit-select-venue-location').value = this.getAttribute('data-venue-location-id');
+            document.getElementById('edit-venue-frequency').value = this.getAttribute('data-venue-frequency');;
+            document.getElementById('edit-venue-genre').value = this.getAttribute('data-venue-genre');;
             modalEditVenue.show();
         });
     });
