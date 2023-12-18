@@ -34,4 +34,23 @@ document.addEventListener('DOMContentLoaded', function () {
             modalAddVenue.show();
         });
     });
+
+    var modalEditVenue = new bootstrap.Modal(document.getElementById('modal-edit-venue'));
+    document.querySelectorAll('.modal-trigger-edit-venue').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var locationId = this.getAttribute('data-venue-location-id');
+            document.getElementById('edit-select-venue-location').value = `${locationId}`;
+            modalEditVenue.show();
+        });
+    });
+
+    var modalDeleteVenue = new bootstrap.Modal(document.getElementById('modal-delete-venue'));
+    document.querySelectorAll('.modal-trigger-delete-venue').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var venueId = this.getAttribute('data-venue-id');
+            document.getElementById('delete-venue-id').value = venueId;
+            document.getElementById('title-delete-venue').textContent += this.getAttribute('data-venue-name');
+            modalDeleteVenue.show();
+        });
+    });
 });

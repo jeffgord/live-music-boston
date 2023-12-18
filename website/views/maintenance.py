@@ -84,3 +84,18 @@ def add_venue():
         db.session.commit()
 
     return redirect(url_for("maintenance.page"))
+
+
+@maintenance.route("maintenance/delete-venue", methods=["POST"])
+@login_required
+def delete_venue():
+    venue_id = request.form["venue_id"]
+    venue = Venue.query.filter_by(id=venue_id).first()
+
+    if not venue:
+        flash("Venue does not exist!")
+    else:
+        db.session.delete(venue)
+        db.session.commit()
+
+    return redirect(url_for("maintenance.page"))

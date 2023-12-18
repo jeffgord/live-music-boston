@@ -89,7 +89,7 @@
             <td>{{ venue.frequency}}</td>
             <td>{{ venue.genre }}</td>
             <td>
-                <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
+                <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-venue"
                     data-venue-id="{{ venue.id }}"
                     data-venue-name="{{ venue.name }}"
                     data-venue-link="{{ venue.link }}"
@@ -97,8 +97,9 @@
                     data-venue-frequency="{{ venue.frequency }}"
                     data-venue-genre="{{ venue.genre }}">
                 </button>
-                <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-location"
-                    data-venue-id="{{ venue.id }}">
+                <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-venue"
+                    data-venue-id="{{ venue.id }}"
+                    data-venue-name="{{ venue.name }}">
                 </button>
             </td>
         </tr>
@@ -114,13 +115,12 @@
 {% call modal.new("delete-venue", "Delete venue: ", "/maintenance/delete-venue", "Yes") %}
 <input type="hidden"
     name="venue_id"
-    id="delete-venue-id"
-    value="">
+    id="delete-venue-id">
 <p>Are you sure you want to delete this venue?</p>
 {% endcall %}
 
 {% call modal.new("edit-venue", "Edit venue: ", "/maintenance/edit-venue", "Save") %}
-{{ maintenance_forms.add_edit_venue('edit')}}
+{{ maintenance_forms.add_edit_venue('edit', locations)}}
 {% endcall %}
 
 {% endblock %}
