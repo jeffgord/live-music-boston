@@ -15,8 +15,7 @@
                 <th scope="col"
                     class="col-3">Name</th>
                 <th scope="col"
-                    class="col-1"
-                    style="text-align: right;">
+                    class="col-1 btn-icon-column">
                     <div class="btn-icon-container">
                         <button id="btn-add-location"
                             class="hoverable bi hover-bi-plus-square btn-icon"></button>
@@ -29,7 +28,7 @@
             {% for location in locations %}
             <tr>
                 <td>{{ location.name }}</td>
-                <td style="text-align: right">
+                <td class="btn-icon-column">
                     <div class="btn-icon-container">
                         <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
                             data-location-id="{{ location.id }}"
@@ -77,12 +76,10 @@
             <th cope="col"
                 class="col-2">Genre</th>
             <th scope="col"
-                class="col-1">
-                <div style="text-align: right;">
-                    <div class="btn-icon-container">
-                        <button class="hoverable bi hover-bi-plus-square btn-icon modal-trigger-add-venue"
-                            data-location-id="{{ location.id }}"></button>
-                    </div>
+                class="col-1 btn-icon-column">
+                <div class="btn-icon-container">
+                    <button class="hoverable bi hover-bi-plus-square btn-icon modal-trigger-add-venue"
+                        data-location-id="{{ location.id }}"></button>
                 </div>
             </th>
         </tr>
@@ -101,7 +98,7 @@
             </td>
             <td>{{ venue.frequency}}</td>
             <td>{{ venue.genre }}</td>
-            <td style="text-align: right">
+            <td class="btn-icon-column">
                 <div class="btn-icon-container">
                     <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-venue"
                         data-venue-id="{{ venue.id }}"

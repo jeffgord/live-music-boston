@@ -3,6 +3,10 @@
     background: none;
 }
 
+.btn-icon-column {
+    text-align: right;
+}
+
 .btn-icon-container {
     width: 80px;
     margin-left: auto;
