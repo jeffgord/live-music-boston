@@ -1,4 +1,12 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    flash,
+    redirect,
+    url_for,
+    session,
+)
 from flask_login import login_required
 from .. import db
 from ..models import Location, Venue
@@ -12,7 +20,13 @@ maintenance = Blueprint("maintenance", __name__)
 def page():
     locations = Location.query.all()
     venues = Venue.query.all()
-    return render_template("maintenance.html", locations=locations, venues=venues)
+
+    return render_template(
+        "maintenance.html",
+        locations=locations,
+        venues=venues,
+        scroll_position=session["scroll_position"],
+    )
 
 
 @maintenance.route("maintenance/add-location", methods=["POST"])
@@ -118,3 +132,12 @@ def edit_venue():
         db.session.commit()
 
     return redirect(url_for("maintenance.page"))
+
+
+@maintenance.route("/maintenance/save-scroll-position", methods=["POST"])
+def save_scroll_position():
+    scroll_position = (
+        request.form.get("scroll_position") or session.get("scroll_position") or 0
+    )
+    session["scroll_position"] = scroll_position
+    return ""

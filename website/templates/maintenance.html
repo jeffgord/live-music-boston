@@ -5,38 +5,45 @@
 {% block title %}Maintenance{% endblock %}
 
 {% block content %}
-<h1 align="center">Locations</h1>
+<div class="col-lg-6 mx-auto">
+    <h1 style="text-align: center;">Locations</h1>
 
-<table id="locations"
-    class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">
-                <button id="btn-add-location"
-                    class="hoverable bi hover-bi-plus-square btn-icon"></button>
-            </th>
-        </tr>
-    </thead>
+    <table id="locations"
+        class="table table-hover table-location">
+        <thead>
+            <tr>
+                <th scope="col"
+                    class="col-3">Name</th>
+                <th scope="col"
+                    class="col-1"
+                    style="text-align: right;">
+                    <div class="btn-icon-container">
+                        <button id="btn-add-location"
+                            class="hoverable bi hover-bi-plus-square btn-icon"></button>
+                    </div>
+                </th>
+            </tr>
+        </thead>
 
-    <tbody>
-        {% for location in locations %}
-        <tr>
-            <td>{{ location.id }}</td>
-            <td>{{ location.name }}</td>
-            <td>
-                <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
-                    data-location-id="{{ location.id }}"
-                    data-location-name="{{ location.name }}"></button>
-                <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-location"
-                    data-location-id="{{ location.id }}"
-                    data-location-name="{{ location.name }}"></button>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <tbody class="table-group-divider">
+            {% for location in locations %}
+            <tr>
+                <td>{{ location.name }}</td>
+                <td style="text-align: right">
+                    <div class="btn-icon-container">
+                        <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-location"
+                            data-location-id="{{ location.id }}"
+                            data-location-name="{{ location.name }}"></button>
+                        <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-location"
+                            data-location-id="{{ location.id }}"
+                            data-location-name="{{ location.name }}"></button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% call modal.new("add-location", "Add location", "/maintenance/add-location", "Add") %}
 {{ maintenance_forms.add_edit_location('add') }}
@@ -63,21 +70,27 @@
     class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Frequency</th>
-            <th cope="col">Genre</th>
-            <th scope="col">
-                <button class="hoverable bi hover-bi-plus-square btn-icon modal-trigger-add-venue"
-                    data-location-id="{{ location.id }}"></button>
+            <th scope="col"
+                class="col-3">Name</th>
+            <th scope="col"
+                class="col-3">Frequency</th>
+            <th cope="col"
+                class="col-2">Genre</th>
+            <th scope="col"
+                class="col-1">
+                <div style="text-align: right;">
+                    <div class="btn-icon-container">
+                        <button class="hoverable bi hover-bi-plus-square btn-icon modal-trigger-add-venue"
+                            data-location-id="{{ location.id }}"></button>
+                    </div>
+                </div>
             </th>
         </tr>
     </thead>
 
-    <tbody>
+    <tbody class="table-group-divider">
         {% for venue in venues if venue.location_id == location.id %}
         <tr>
-            <td>{{ venue.id }}</td>
             <td>
                 {% if venue.link %}
                 <a href="{{ venue.link }}"
@@ -88,19 +101,21 @@
             </td>
             <td>{{ venue.frequency}}</td>
             <td>{{ venue.genre }}</td>
-            <td>
-                <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-venue"
-                    data-venue-id="{{ venue.id }}"
-                    data-venue-name="{{ venue.name }}"
-                    data-venue-link="{{ venue.link }}"
-                    data-venue-location-id="{{ location.id }}"
-                    data-venue-frequency="{{ venue.frequency }}"
-                    data-venue-genre="{{ venue.genre }}">
-                </button>
-                <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-venue"
-                    data-venue-id="{{ venue.id }}"
-                    data-venue-name="{{ venue.name }}">
-                </button>
+            <td style="text-align: right">
+                <div class="btn-icon-container">
+                    <button class="hoverable bi hover-bi-pencil btn-icon modal-trigger-edit-venue"
+                        data-venue-id="{{ venue.id }}"
+                        data-venue-name="{{ venue.name }}"
+                        data-venue-link="{{ venue.link }}"
+                        data-venue-location-id="{{ location.id }}"
+                        data-venue-frequency="{{ venue.frequency }}"
+                        data-venue-genre="{{ venue.genre }}">
+                    </button>
+                    <button class="hoverable bi hover-bi-trash btn-icon modal-trigger-delete-venue"
+                        data-venue-id="{{ venue.id }}"
+                        data-venue-name="{{ venue.name }}">
+                    </button>
+                </div>
             </td>
         </tr>
         {% endfor %}
@@ -123,9 +138,16 @@
 {{ maintenance_forms.add_edit_venue('edit', locations)}}
 {% endcall %}
 
+<br />
+<br />
+<br />
+
 {% endblock %}
 
 
 {% block scripts %}
 <script src="/static/maintenance.js"></script>
+<script>
+    document.documentElement.scrollTop = {{ session.get('scroll_position', 0) }};
+</script>
 {% endblock %}
