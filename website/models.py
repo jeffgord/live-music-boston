@@ -12,6 +12,7 @@ class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), unique=True, nullable=False)
     venues = db.relationship("Venue")
+    ordinal = db.Column(db.Integer)
 
 
 class Venue(db.Model):

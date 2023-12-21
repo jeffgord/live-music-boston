@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function () {
     var btnAddLocation = document.getElementById('btn-add-location');
     var modalAddLocation = new bootstrap.Modal(document.getElementById('modal-add-location'));
     btnAddLocation.addEventListener('click', function () {
@@ -56,4 +56,24 @@ document.addEventListener('DOMContentLoaded', function () {
             modalDeleteVenue.show();
         });
     });
+
+    initializeSortableTable("locations", updateLocationsOrder);
 });
+
+function updateLocationsOrder() {
+    saveScrollPosition();
+    var order = $('#locations tbody').sortable('toArray', { attribute: 'data-location-id' });
+
+    $.ajax({
+        type: 'POST',
+        url: '/maintenance/update-locations-order',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify({ id_order: order }),
+        success: function () {
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+}

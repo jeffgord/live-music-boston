@@ -18,8 +18,10 @@ maintenance = Blueprint("maintenance", __name__)
 @maintenance.route("/maintenance")
 @login_required
 def page():
-    locations = Location.query.all()
+    locations = list(Location.query.all())
     venues = Venue.query.all()
+    locations.sort(key=lambda location: location.ordinal)
+    venues.sort(key=lambda venue: venue.name.lower())
 
     return render_template(
         "maintenance.html",
@@ -42,6 +44,22 @@ def add_location():
         db.session.commit()
 
     return redirect(url_for("maintenance.page"))
+
+
+@maintenance.route("maintenance/update-locations-order", methods=["POST"])
+@login_required
+def update_locations_order():
+    data = request.get_json()
+    id_order = data["id_order"]
+
+    ordinal = 1
+    for id in id_order:
+        location = Location.query.filter_by(id=id).first()
+        location.ordinal = ordinal
+        ordinal += 1
+        db.session.commit()
+
+    return ""
 
 
 @maintenance.route("maintenance/delete-location", methods=["POST"])

@@ -7,10 +7,10 @@ def seed_data():
 
     with app.app_context():
         # Create locations
-        camberville = Location(name="Somerville/Cambridge")
-        allbright = Location(name="Allston/Brighton")
-        downtown = Location(name="Downtown")
-        elsewhere = Location(name="Elsewhere")
+        allbright = Location(name="Allston/Brighton", ordinal=1)
+        camberville = Location(name="Somerville/Cambridge", ordinal=2)
+        downtown = Location(name="Downtown", ordinal=3)
+        elsewhere = Location(name="Elsewhere", ordinal=4)
 
         db.session.add_all([camberville, allbright, downtown, elsewhere])
         db.session.commit()
