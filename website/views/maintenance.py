@@ -8,6 +8,7 @@ from flask import (
     session,
 )
 from flask_login import login_required
+from sqlalchemy import func
 from .. import db
 from ..models import Location, Venue
 
@@ -39,7 +40,8 @@ def add_location():
     if Location.query.filter_by(name=name).first():
         flash("A location already exists with that name!")
     else:
-        new_location = Location(name=name)
+        max_ordinal = db.session.query(func.max(Location.ordinal)).scalar()
+        new_location = Location(name=name, ordinal=max_ordinal + 1)
         db.session.add(new_location)
         db.session.commit()
 
