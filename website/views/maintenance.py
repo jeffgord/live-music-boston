@@ -72,6 +72,10 @@ def delete_location():
 
     if not location:
         flash("Location does not exist!")
+    elif len(location.venues) != 0:
+        flash(
+            f"You must delete all associated venues before deleting location: {location.name}"
+        )
     else:
         db.session.delete(location)
         db.session.commit()
