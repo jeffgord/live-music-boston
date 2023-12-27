@@ -18,13 +18,17 @@ function fillLocationsTable() {
             { data: "name" },
             {
                 data: null,
-                defaultContent: '<i class="hoverable bi hover-bi-pencil"/>',
+                defaultContent: '<i class="hoverable bi bi-pencil"/>',
             },
             {
                 data: null,
-                defaultContent: '<i class="hoverable bi hover-bi-trash"/>',
+                defaultContent: '<i class="hoverable bi bi-trash"/>',
             }
-        ]
+        ],
+        drawCallback: function () {
+            var hoverableElements = document.querySelectorAll('.hoverable');
+            hoverableElements.forEach(changeFillOnHover);
+        }
     }));
 }
 
