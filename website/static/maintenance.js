@@ -19,10 +19,12 @@ function fillLocationsTable() {
             {
                 data: null,
                 defaultContent: '<i class="hoverable bi bi-pencil"/>',
+                width: "6%"
             },
             {
                 data: null,
                 defaultContent: '<i class="hoverable bi bi-trash"/>',
+                width: "6%"
             }
         ],
         drawCallback: function () {
