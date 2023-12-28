@@ -33,3 +33,8 @@ def locations():
         data.append({"id": location.id, "name": location.name})
 
     return jsonify({"data": data})
+
+
+@maintenance.route("/maintenance/reorder-locations")
+def reorder_locations():
+    pass

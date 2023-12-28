@@ -1,6 +1,6 @@
 $(document).ready(function () {
     fillLocationsTable();
-    initializeSortableTable("locations", updateLocationsOrder);
+    initializeSortableTable("locations", reorderLocations);
 });
 
 var defaultOptions = {
@@ -14,8 +14,11 @@ function fillLocationsTable() {
     $('#locations').DataTable($.extend({}, defaultOptions, {
         ajax: "/maintenance/locations",
         columns: [
-            { data: "id" },
             { data: "name" },
+            {
+                data: "id",
+                visible: false
+            },
             {
                 data: null,
                 defaultContent: '<i class="hoverable bi bi-pencil"/>',
@@ -34,12 +37,14 @@ function fillLocationsTable() {
     }));
 }
 
-function updateLocationsOrder() {
-    var order = $('#locations tbody').sortable('toArray', { attribute: 'data-location-id' });
+function reorderLocations() {
+    var order = $('#locations').DataTable().rows().data().toArray().map(function (rowData) {
+        return rowData['id'];
+    });
 
     $.ajax({
         type: 'POST',
-        url: '/maintenance/update-locations-order',
+        url: '/maintenance/reorder-locations',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({ id_order: order }),
         success: function () {
