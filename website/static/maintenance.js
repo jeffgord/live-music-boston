@@ -16,10 +16,6 @@ function fillLocationsTable() {
         columns: [
             { data: "name" },
             {
-                data: "id",
-                visible: false
-            },
-            {
                 data: null,
                 defaultContent: '<i class="hoverable bi bi-pencil"/>',
                 width: "6%"
@@ -30,6 +26,9 @@ function fillLocationsTable() {
                 width: "6%"
             }
         ],
+        createdRow: function (row, data, dataIndex) {
+            $(row).attr('data-location-id', data.id);
+        },
         drawCallback: function () {
             var hoverableElements = document.querySelectorAll('.hoverable');
             hoverableElements.forEach(changeFillOnHover);
@@ -38,9 +37,7 @@ function fillLocationsTable() {
 }
 
 function reorderLocations() {
-    var order = $('#locations').DataTable().rows().data().toArray().map(function (rowData) {
-        return rowData['id'];
-    });
+    var order = $('#locations tbody').sortable('toArray', { attribute: 'data-location-id' });
 
     $.ajax({
         type: 'POST',

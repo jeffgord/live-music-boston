@@ -3,9 +3,6 @@ from flask import (
     render_template,
     request,
     flash,
-    redirect,
-    url_for,
-    session,
     jsonify,
 )
 from flask_login import login_required
@@ -35,6 +32,16 @@ def locations():
     return jsonify({"data": data})
 
 
-@maintenance.route("/maintenance/reorder-locations")
+@maintenance.route("/maintenance/reorder-locations", methods=["POST"])
 def reorder_locations():
-    pass
+    data = request.get_json()
+    id_order = data["id_order"]
+
+    ordinal = 1
+    for id in id_order:
+        location = Location.query.filter_by(id=id).first()
+        location.ordinal = ordinal
+        db.session.commit()
+        ordinal += 1
+
+    return ""
