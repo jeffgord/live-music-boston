@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import 'modal.html' as modal %}
 
 {% block title %}Maintenance{% endblock %}
 
@@ -9,16 +10,20 @@
     <table id="locations"
         class="table table-hover">
         <thead>
-            <th>Name</th>
+            <th data-bs-toggle="tooltip"
+                data-bs-title="Drag & drop locations to re-order"
+                data-bs-placement="left"
+                data-container="body">Name</th>
             <th></th>
-            <th></th>
+            <th><i class="hoverable bi bi-plus-square modal-trigger-add" /></th>
         </thead>
     </table>
 
 </div>
 
-{% endblock %}
+{{ modal.new('modal') }}
 
+{% endblock %}
 
 {% block scripts %}
 <script src="/static/maintenance.js"></script>

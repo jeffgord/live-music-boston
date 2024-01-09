@@ -1,14 +1,9 @@
-from flask import (
-    Blueprint,
-    render_template,
-    request,
-    flash,
-    jsonify,
-)
+from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required
 from sqlalchemy import func
 from .. import db
 from ..models import Location, Venue
+from utils import json_message
 
 
 maintenance = Blueprint("maintenance", __name__)
@@ -30,6 +25,24 @@ def locations():
         data.append({"id": location.id, "name": location.name})
 
     return jsonify({"data": data})
+
+
+@maintenance.route("/maintenance/add-location")
+def locations():
+    try:
+        name = request.form["name"]
+
+        if Location.query.filter_by(name=name).first():
+            flash("A location already exists with that name!")
+        else:
+            max_ordinal = db.session.query(func.max(Location.ordinal)).scalar()
+            new_location = Location(name=name, ordinal=max_ordinal + 1)
+            db.session.add(new_location)
+            db.session.commit()
+
+        return json_message.success_message("Added location")
+    except Exception as e:
+        return json_message.error_message(e)
 
 
 @maintenance.route("/maintenance/reorder-locations", methods=["POST"])
