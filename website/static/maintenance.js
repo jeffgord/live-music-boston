@@ -58,6 +58,7 @@ function createLocationsTable() {
 
             var addButton = $(locationsTable).find('.modal-trigger-add');
             addButton.on('click', () => { showAddLocationModal(); })
+            addButton.removeAttr('style');
         }
     }));
 }
