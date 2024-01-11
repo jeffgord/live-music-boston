@@ -127,7 +127,7 @@ function createDeleteLocationForm(locationId) {
     message.innerText = 'Are you sure you want to delete this location?';
     formContent.appendChild(message);
 
-    return createModalForm('delete-location-form', '', 'Yes', formContent);
+    return createModalForm('delete-location-form', '/maintenance/delete-location', 'Yes', formContent);
 }
 
 function reorderLocations() {

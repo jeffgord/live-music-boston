@@ -43,7 +43,20 @@ def add_location():
             db.session.add(new_location)
             db.session.commit()
 
-        return json_message.success("Added location")
+        return json_message.success()
+    except:
+        return json_message.error()
+
+
+@maintenance.route("/maintenance/edit-location", methods=["POST"])
+def edit_location():
+    try:
+        id = request.form["id"]
+        name = request.form["name"]
+        location = Location.query.filter_by(id=id).first()
+        location.name = name
+        db.session.commit()
+        return json_message.success()
     except:
         return json_message.error()
 
@@ -61,6 +74,7 @@ def delete_location():
         else:
             db.session.delete(location)
             db.session.commit()
+            return json_message.success()
     except:
         return json_message.error()
 
