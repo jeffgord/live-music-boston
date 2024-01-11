@@ -33,16 +33,33 @@ def add_location():
         name = request.form["name"]
 
         if Location.query.filter_by(name=name).first():
-            flash("A location already exists with that name!")
+            return json_message.error("A location already exists with that name!")
         else:
             max_ordinal = db.session.query(func.max(Location.ordinal)).scalar()
             new_location = Location(name=name, ordinal=max_ordinal + 1)
             db.session.add(new_location)
             db.session.commit()
 
-        return json_message.success_message("Added location")
-    except Exception as e:
-        return json_message.error_message(e)
+        return json_message.success("Added location")
+    except Exception:
+        return json_message.error()
+
+
+@maintenance.route("/maintenance/delete-location", methods=["POST"])
+def delete_location():
+    try:
+        id = request.form["id"]
+        location = Location.query.filter_by(id=id).first()
+
+        if len(location.venues):
+            return json_message.error(
+                f"You must delete all associated venues before deleting location: {location.name}"
+            )
+        else:
+            db.session.delete(location)
+            db.session.commit()
+    except Exception:
+        return json_message.error()
 
 
 @maintenance.route("/maintenance/reorder-locations", methods=["POST"])
