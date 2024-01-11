@@ -40,6 +40,9 @@ function submitModalForm(formId) {
     $.ajax({
         type: 'POST',
         url: form[0].action,
-        data: form.serialize()
+        data: form.serialize(),
+        success: () => {
+            location.reload();
+        }
     })
 }
