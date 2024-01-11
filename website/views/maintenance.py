@@ -3,7 +3,7 @@ from flask_login import login_required
 from sqlalchemy import func
 from .. import db
 from ..models import Location, Venue
-from utils import json_message
+from ..utils import json_message
 
 
 maintenance = Blueprint("maintenance", __name__)
@@ -27,8 +27,8 @@ def locations():
     return jsonify({"data": data})
 
 
-@maintenance.route("/maintenance/add-location")
-def locations():
+@maintenance.route("/maintenance/add-location", methods=["POST"])
+def add_location():
     try:
         name = request.form["name"]
 

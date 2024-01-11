@@ -11,9 +11,9 @@ function setModalContent(id, title, bodyContent) {
     modalBody.appendChild(bodyContent);
 }
 
-function createModalForm(action, submitText, formContent) {
+function createModalForm(id, action, submitText, formContent) {
     var form = document.createElement('form');
-    form.id = 'modal-form';
+    form.id = id;
     form.action = action;
     form.method = 'POST';
 
@@ -28,7 +28,7 @@ function createModalForm(action, submitText, formContent) {
     submitButton.type = 'button';
     submitButton.className = 'btn btn-secondary btn-form';
     submitButton.innerText = submitText;
-    submitButton.on('click', () => { submitModalForm(form.id); });
+    submitButton.addEventListener('click', () => { submitModalForm(id); });
     buttonWrapper.appendChild(submitButton);
 
     return form;

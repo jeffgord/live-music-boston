@@ -91,9 +91,9 @@ function createAddEditLocationForm(locationData) {
     }
 
     var submitText = locationData ? 'Save' : 'Add';
-    var action = '/maintenance/' + ('edit-location' ? locationData : 'add-location')
+    var action = '/maintenance/' + (locationData ? 'edit-location' : 'add-location')
 
-    return createModalForm(action, submitText, formContent);
+    return createModalForm('add-edit-location-form', action, submitText, formContent);
 }
 
 function showDeleteLocationModal(locationData) {
@@ -115,7 +115,7 @@ function createDeleteLocationForm(locationId) {
     message.innerText = 'Are you sure you want to delete this location?';
     formContent.appendChild(message);
 
-    return createModalForm('', 'Yes', formContent);
+    return createModalForm('delete-location-form', '', 'Yes', formContent);
 }
 
 function reorderLocations() {
