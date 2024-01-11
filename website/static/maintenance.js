@@ -17,7 +17,16 @@ $(document).ready(function () {
 
 function createLocationsTable() {
     locationsTable.DataTable($.extend({}, defaultOptions, {
-        ajax: "/maintenance/locations",
+        ajax: {
+            url: "/maintenance/locations",
+            dataSrc: function (json) {
+                if (json.error) {
+                    alert("Server-side error: " + json.error);
+                    return [];
+                }
+                return json;
+            }
+        },
         columns: [
             { data: "name" },
             {
@@ -31,6 +40,9 @@ function createLocationsTable() {
                 width: "6%"
             }
         ],
+        error: (xhr, error, thrown) => {
+            alert("An error occurred fetching data from the server. Try reloading the page.");
+        },
         createdRow: function (row, data, dataIndex) {
             $(row).attr('data-location-id', data.id); // need to store data id for drag and drop sorting - see reorderLocations()
 

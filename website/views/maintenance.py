@@ -17,14 +17,17 @@ def page():
 
 @maintenance.route("/maintenance/locations")
 def locations():
-    locations = list(Location.query.all())
-    locations.sort(key=lambda location: location.ordinal)
+    try:
+        locations = list(Location.query.all())
+        locations.sort(key=lambda location: location.ordinal)
 
-    data = []
-    for location in locations:
-        data.append({"id": location.id, "name": location.name})
+        data = []
+        for location in locations:
+            data.append({"id": location.id, "name": location.name})
 
-    return jsonify({"data": data})
+        return jsonify(data)
+    except:
+        return json_message.error()
 
 
 @maintenance.route("/maintenance/add-location", methods=["POST"])
@@ -33,7 +36,7 @@ def add_location():
         name = request.form["name"]
 
         if Location.query.filter_by(name=name).first():
-            return json_message.error("A location already exists with that name!")
+            return json_message.error("A location already exists with that name!"), 500
         else:
             max_ordinal = db.session.query(func.max(Location.ordinal)).scalar()
             new_location = Location(name=name, ordinal=max_ordinal + 1)
@@ -41,7 +44,7 @@ def add_location():
             db.session.commit()
 
         return json_message.success("Added location")
-    except Exception:
+    except:
         return json_message.error()
 
 
@@ -58,20 +61,23 @@ def delete_location():
         else:
             db.session.delete(location)
             db.session.commit()
-    except Exception:
+    except:
         return json_message.error()
 
 
 @maintenance.route("/maintenance/reorder-locations", methods=["POST"])
 def reorder_locations():
-    data = request.get_json()
-    id_order = data["id_order"]
+    try:
+        data = request.get_json()
+        id_order = data["id_order"]
 
-    ordinal = 1
-    for id in id_order:
-        location = Location.query.filter_by(id=id).first()
-        location.ordinal = ordinal
-        db.session.commit()
-        ordinal += 1
+        ordinal = 1
+        for id in id_order:
+            location = Location.query.filter_by(id=id).first()
+            location.ordinal = ordinal
+            db.session.commit()
+            ordinal += 1
 
-    return ""
+        return json_message.success()
+    except:
+        return json_message.error()

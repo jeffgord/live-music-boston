@@ -43,6 +43,9 @@ function submitModalForm(formId) {
         data: form.serialize(),
         success: () => {
             location.reload();
+        },
+        error: () => {
+            console.error("Error!")
         }
     })
 }
