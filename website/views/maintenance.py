@@ -36,7 +36,7 @@ def add_location():
         name = request.form["name"]
 
         if Location.query.filter_by(name=name).first():
-            return json_message.error("A location already exists with that name!"), 500
+            return json_message.error("A location already exists with that name!")
         else:
             max_ordinal = db.session.query(func.max(Location.ordinal)).scalar()
             new_location = Location(name=name, ordinal=max_ordinal + 1)
