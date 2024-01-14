@@ -19,6 +19,8 @@
         href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css">
     <link rel="stylesheet"
         href="static/styles.css">
+    <link rel="stylesheet"
+        href="static/icons/icons.css">
     {% block stylesheets %}{% endblock %}
     <title>{% block title %}Live Music Boston{% endblock %}</title>
 </head>
@@ -42,8 +44,7 @@
 
     <a href="{{ url_for('views.home') }}"
         class="btn btn-icon btn-lg">
-        <i class="hoverable bi bi-house-door"
-            style="font-size: 2.0rem;"></i>
+        <div class="hoverable icon-guitar"></div>
     </a>
 
     <div class="container">

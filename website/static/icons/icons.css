@@ -1,0 +1,13 @@
+.icon-guitar,
+.icon-guitar-fill {
+    width: 80px;
+    height: 80px;
+}
+
+.icon-guitar {
+    background-image: url('icon-guitar.svg');
+}
+
+.icon-guitar-fill {
+    background-image: url('icon-guitar-fill.svg');
+}

@@ -2,7 +2,7 @@ const IconElements = {
     Add: "bi-plus-square",
     Edit: "bi-pencil",
     Delete: "bi-trash",
-    Home: "bi-house-door"
+    Home: "icon-guitar"
 }
 
 function changeFillOnHover(element) {
