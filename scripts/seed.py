@@ -173,7 +173,7 @@ def seed_data():
             genre="Touring acts",
         )
         paradise_rock_club = Venue(
-            name="Paradis Rock Club",
+            name="Paradise Rock Club",
             link="https://crossroadspresents.com/pages/paradise-rock-club",
             location_id=downtown.id,
             frequency="Music some nights",
