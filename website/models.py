@@ -1,24 +1,27 @@
-from . import db
-from flask_login import UserMixin
+class Venue:
+    def __init__(self, name, location, frequency, genre, link):
+        self._name = name
+        self._location = location
+        self._frequency = frequency
+        self._genre = genre
+        self._link = link
 
+    @property
+    def name(self):
+        return self._name
 
-class Admin(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
+    @property
+    def location(self):
+        return self._property
 
+    @property
+    def frequency(self):
+        return self._frequency
 
-class Location(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), unique=True, nullable=False)
-    venues = db.relationship("Venue")
-    ordinal = db.Column(db.Integer)
+    @property
+    def genre(self):
+        return self._genre
 
-
-class Venue(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), unique=True, nullable=False)
-    link = db.Column(db.String(300))
-    location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
-    frequency = db.Column(db.String(150))
-    genre = db.Column(db.String(150))
+    @property
+    def link(self):
+        return self._link
