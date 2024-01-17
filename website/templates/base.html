@@ -14,9 +14,9 @@
         integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd"
         crossorigin="anonymous">
     <link rel="stylesheet"
-        href="static/styles.css">
+        href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet"
-        href="static/icons/icons.css">
+        href="{{ url_for('static', filename='icons/icons.css') }}">
     {% block stylesheets %}{% endblock %}
     <title>Live Music Boston</title>
 </head>
@@ -51,7 +51,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-    <script src="static/changeFillOnHover.js"></script>
+    <script src="{{ url_for('static', filename='changeFillOnHover.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>
 
