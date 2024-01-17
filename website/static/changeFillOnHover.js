@@ -29,7 +29,7 @@ function changeFillOnHover(element) {
     })
 }
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
     var hoverableElements = document.querySelectorAll('.hoverable');
     hoverableElements.forEach(changeFillOnHover);
-})
+});
